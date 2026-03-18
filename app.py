@@ -70,11 +70,14 @@ for nm in PRESELECT_NAMES:
 st.session_state.setdefault("selected_names", default_sel)
 st.session_state.setdefault("result_opt1", None)
 st.session_state.setdefault("result_opt2", None)
+st.session_state.setdefault("has_generated", False)
 
 
 def _recalc_if_possible() -> None:
     selected = st.session_state.get("selected_names", [])
     if not isinstance(selected, list) or len(selected) not in (14, 16):
+        return
+    if not st.session_state.get("has_generated", False):
         return
     cfg_local = st.session_state.get("cfg")
     df_local = st.session_state.get("players_df")
@@ -194,11 +197,8 @@ with tab1:
     players = _df_to_players_for_selection(players_df, st.session_state["selected_names"])
     cfg["team_size"] = len(players) // 2
 
-    # Si la convocatoria ya es válida, calculamos opciones sin depender de tocar el slider/botón.
-    if (st.session_state.get("result_opt1") is None) or (st.session_state.get("result_opt2") is None):
-        r1, r2 = balance_2_options(players, cfg, objective_mode="weighted")
-        st.session_state["result_opt1"] = r1
-        st.session_state["result_opt2"] = r2
+    # Importante para UX/Streamlit Cloud: NO calculamos automáticamente al cargar.
+    # Solo se calcula tras pulsar "Generar alineaciones" o "Recalcular".
 
     st.divider()
     st.subheader("Generación")
@@ -207,10 +207,12 @@ with tab1:
         r1, r2 = balance_2_options(players, cfg, objective_mode="weighted")
         st.session_state["result_opt1"] = r1
         st.session_state["result_opt2"] = r2
+        st.session_state["has_generated"] = True
     if crec.button("Recalcular", use_container_width=True):
         r1, r2 = balance_2_options(players, cfg, objective_mode="weighted")
         st.session_state["result_opt1"] = r1
         st.session_state["result_opt2"] = r2
+        st.session_state["has_generated"] = True
 
     res1: TeamResult | None = st.session_state.get("result_opt1")
     res2: TeamResult | None = st.session_state.get("result_opt2")
