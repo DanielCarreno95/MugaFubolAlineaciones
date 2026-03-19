@@ -172,7 +172,7 @@ with tab1:
     st.multiselect(
         "Convocados (final)",
         options=all_names,
-        default=st.session_state.get("selected_names", []),
+        
         key="selected_names",
         help="Escribe para buscar. Aquí ves la selección final.",
     )
@@ -182,7 +182,7 @@ with tab1:
         st.multiselect(
             "Jugadores a añadir",
             options=all_names,
-            default=[],
+            
             key="batch_add",
             help="Selecciona varios y pulsa 'Añadir seleccionados'.",
         )
