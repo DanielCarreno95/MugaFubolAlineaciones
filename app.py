@@ -54,6 +54,7 @@ try:
     players_df, cfg, _history, _learning = _load_state(excel_p)
 except Exception as e:
     st.error(f"No pude cargar datos: {e}")
+    st.exception(e)  # Mostrar traceback completo para debug
     st.stop()
 
 st.sidebar.header("Configuración")
