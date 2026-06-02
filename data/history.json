@@ -1,0 +1,28 @@
+{
+  "events": [
+    {
+      "type": "move",
+      "ts": 1773825915,
+      "group_id": "1773825852258",
+      "player": "Migue",
+      "from_team": "A",
+      "to_team": "B"
+    },
+    {
+      "type": "move",
+      "ts": 1773825919,
+      "group_id": "1773825852258",
+      "player": "Ale",
+      "from_team": "A",
+      "to_team": "B"
+    },
+    {
+      "type": "move",
+      "ts": 1773825925,
+      "group_id": "1773825852258",
+      "player": "Diego el profe",
+      "from_team": "B",
+      "to_team": "A"
+    }
+  ]
+}
